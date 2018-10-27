@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.mpco.calibreSearch</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Charles Ma</string>
+	<key>description</key>
+	<string>Search books in Calibre</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Calibre Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>cali</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+import sys
+import json
+import sqlite3
+import subprocess
+
+
+class Concatenate():
+    def __init__(self):
+        self.itemList = []
+
+    def step(self, value):
+        # print 'step(%r)' % value
+        self.itemList.append(value)
+
+    def finalize(self):
+        # print("final: %r" % ",".join(self.itemList))
+        return "!@#$".join(self.itemList)
+
+
+queryStr = sys.argv[1]
+libraryPath = subprocess.check_output('/Applications/calibre.app/Contents/MacOS/calibre-debug -c "from calibre.utils.config import prefs; print(prefs.get(\'library_path\'),end=\'\')"', shell=True)
+metaDbPath = os.path.join(libraryPath, 'metadata.db')
+con = sqlite3.connect(metaDbPath)
+con.create_aggregate("concat", 1, Concatenate)
+cur = con.cursor()
+querySQL = """
+SELECT id, title,
+   (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
+   (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
+   (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
+   (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
+   (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
+   (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
+   path
+FROM books
+WHERE title like '%{}%'
+""".format(queryStr)
+
+cur.execute(querySQL)
+queryResult = cur.fetchall()
+
+workflowResult = {"items": []}
+for item in queryResult:
+    bookID = item[0]
+    bookTitle = item[1]
+    bookAuthors = item[2].replace("!@#$", ", ")
+    bookSize = item[3]
+    bookTags = item[4]
+    bookFormatList = item[5].split("!@#$")
+    bookFilenameList = item[6].split("!@#$")
+    bookRating = (str(item[7]) + "  ") if isinstance(item[7], int) else "N/A"
+    bookPath = item[8]
+
+    bookFormat = bookFormatList[0]
+    bookFilename = bookFilenameList[0]
+    temp = {}
+    temp["type"] = "file"
+    temp["title"] = bookTitle
+    temp["icon"] = {"path": os.path.join(libraryPath, bookPath, "cover.jpg")}
+    temp["subtitle"] = u"📙 {:&lt;7} ⭐️ {:&lt;5}  ✍️ {}".format(bookFormat, bookRating, bookAuthors)
+    temp["arg"] = os.path.join(libraryPath, bookPath, bookFilename + "." + bookFormat.lower())
+    workflowResult['items'].append(temp)
+
+    # if more than one format
+    if len(bookFormatList) &gt; 1:
+        for i in range(1, len(bookFormatList)):
+            bookFormat = bookFormatList[i]
+            bookFilename = bookFilenameList[i]
+            temp = {}
+            temp["type"] = "file"
+            temp["title"] = bookTitle
+            temp["icon"] = {"path": os.path.join(libraryPath, bookPath, "cover.jpg")}
+            temp["subtitle"] = u"📙 {:&lt;7} ⭐️ {:&lt;5}  ✍️ {}".format(bookFormat, bookRating, bookAuthors)
+            temp["arg"] = os.path.join(libraryPath, bookPath, bookFilename + "." + bookFormat.lower())
+            workflowResult['items'].append(temp)
+
+print json.dumps(workflowResult, indent=4, sort_keys=True, ensure_ascii=False)
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search in Calibre</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>C74CAB81-E564-41FD-9F92-556676D1663F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>80</integer>
+		</dict>
+		<key>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>250</integer>
+			<key>ypos</key>
+			<integer>80</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>2.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/mpco/AlfredWorkflow-Calibre-Search</string>
+</dict>
+</plist>
