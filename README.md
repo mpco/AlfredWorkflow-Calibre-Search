@@ -73,3 +73,6 @@ Order: `Douban、Amzon CN、Amazon、Google Book、ISBN`
 
 目前的优先级排序：`豆瓣、亚马逊中国、亚马逊、谷歌图书、ISBN`
 
+## Todo
+
+使用 `cali + 关键词` 搜索时，标题符合的书籍排在标签符合的书籍前面，可能更加方便吧。但是，没想到怎么实现…… 🤣
