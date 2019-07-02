@@ -125,6 +125,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -163,7 +165,7 @@
 			<key>uid</key>
 			<string>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -191,6 +193,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -229,9 +233,14 @@
 			<key>uid</key>
 			<string>E5B431D6-4AAA-40D0-BD20-BF57E195F68B</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict>
+				<key>path</key>
+				<string></string>
+			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
@@ -261,6 +270,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -299,7 +310,7 @@
 			<key>uid</key>
 			<string>FCE4784A-E14B-430D-928D-83F30E3485DB</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -309,21 +320,21 @@
 		<key>4D24259D-8DBE-4341-9325-00E805D4E105</key>
 		<dict>
 			<key>xpos</key>
-			<integer>630</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>110</integer>
 		</dict>
 		<key>B2F21638-854C-4316-AF2B-5BC73EFF533D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>630</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>230</integer>
 		</dict>
 		<key>C74CAB81-E564-41FD-9F92-556676D1663F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>630</integer>
+			<integer>730</integer>
 			<key>ypos</key>
 			<integer>350</integer>
 		</dict>
@@ -363,7 +374,7 @@
 		<string>BookWebsite</string>
 	</array>
 	<key>version</key>
-	<string>3.0</string>
+	<string>3.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/mpco/AlfredWorkflow-Calibre-Search</string>
 </dict>

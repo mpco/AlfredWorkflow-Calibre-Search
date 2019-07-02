@@ -100,7 +100,7 @@ def main(querySQL):
         temp["subtitle"] = u"📙 {:<7} ⭐️ {:<5}  ✍️ {}".format(bookFormat, bookRating, bookAuthors)
         temp["arg"] = bookFullPath
         temp["mods"] = {
-            "alt": {"valid": True, "arg": bookWeblink, "subtitle": bookIdentifiers},
+            "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
             "cmd": {"valid": True, "arg": bookFullPath, "subtitle": u"🏷 " + bookTags}}
         workflowResult['items'].append(temp)
 
@@ -119,10 +119,13 @@ def main(querySQL):
                 temp["arg"] = os.path.join(
                     libraryPath, bookPath, bookFilename + "." + bookFormat.lower())
                 temp["mods"] = {
-                    "alt": {"valid": True, "arg": bookWeblink, "subtitle": bookIdentifiers},
+                    "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
                     "cmd": {"valid": True, "arg": bookTags, "subtitle": u"🏷 " + bookTags}}
                 workflowResult['items'].append(temp)
-    print json.dumps(workflowResult, indent=4, sort_keys=True)
+    if workflowResult["items"]:
+        print(json.dumps(workflowResult, indent=4, sort_keys=True))
+    else:
+        print('{"items": [{"title": "None found","subtitle": "(*´･д･)?"}]}')
 
 
 if __name__ == '__main__':
