@@ -516,7 +516,7 @@
 		<string>BookWebsite</string>
 	</array>
 	<key>version</key>
-	<string>3.1</string>
+	<string>3.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/mpco/AlfredWorkflow-Calibre-Search</string>
 </dict>
