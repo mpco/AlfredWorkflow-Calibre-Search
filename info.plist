@@ -5,9 +5,47 @@
 	<key>bundleid</key>
 	<string>com.mpco.calibreSearch</string>
 	<key>category</key>
-	<string>Tools</string>
+	<string>Mine</string>
 	<key>connections</key>
 	<dict>
+		<key>13882102-294E-4AB0-B190-F36D24F2A6D0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9E033A42-D9F0-4CE5-90B3-889996F89398</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9E033A42-D9F0-4CE5-90B3-889996F89398</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>FFC74707-C460-4BAD-AA88-B4B7B1D501D0</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>932E9376-D5B9-4D33-8691-C077C3A92593</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</key>
 		<array>
 			<dict>
@@ -33,6 +71,16 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -67,6 +115,16 @@
 				<key>destinationuid</key>
 				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
 				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
+				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
@@ -99,6 +157,16 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -312,56 +380,130 @@
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string></string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>4</integer>
+						<key>matchstring</key>
+						<string>pdf$</string>
+						<key>outputlabel</key>
+						<string></string>
+						<key>uid</key>
+						<string>FFC74707-C460-4BAD-AA88-B4B7B1D501D0</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>else</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>9E033A42-D9F0-4CE5-90B3-889996F89398</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string>/Applications/calibre.app/Contents/ebook-viewer.app</string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>932E9376-D5B9-4D33-8691-C077C3A92593</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>13882102-294E-4AB0-B190-F36D24F2A6D0</key>
+		<dict>
+			<key>xpos</key>
+			<integer>350</integer>
+			<key>ypos</key>
+			<integer>420</integer>
+		</dict>
 		<key>4D24259D-8DBE-4341-9325-00E805D4E105</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<integer>575</integer>
 			<key>ypos</key>
-			<integer>110</integer>
+			<integer>95</integer>
+		</dict>
+		<key>932E9376-D5B9-4D33-8691-C077C3A92593</key>
+		<dict>
+			<key>xpos</key>
+			<integer>575</integer>
+			<key>ypos</key>
+			<integer>470</integer>
+		</dict>
+		<key>9E033A42-D9F0-4CE5-90B3-889996F89398</key>
+		<dict>
+			<key>xpos</key>
+			<integer>455</integer>
+			<key>ypos</key>
+			<integer>410</integer>
 		</dict>
 		<key>B2F21638-854C-4316-AF2B-5BC73EFF533D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<integer>575</integer>
 			<key>ypos</key>
-			<integer>230</integer>
+			<integer>215</integer>
 		</dict>
 		<key>C74CAB81-E564-41FD-9F92-556676D1663F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>730</integer>
+			<integer>575</integer>
 			<key>ypos</key>
-			<integer>350</integer>
+			<integer>335</integer>
 		</dict>
 		<key>CF1BD19A-D2CA-410E-8C2D-D4E9C06CC74E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>250</integer>
+			<integer>95</integer>
 			<key>ypos</key>
-			<integer>80</integer>
+			<integer>65</integer>
 		</dict>
 		<key>E5B431D6-4AAA-40D0-BD20-BF57E195F68B</key>
 		<dict>
 			<key>note</key>
 			<string>Search by Title</string>
 			<key>xpos</key>
-			<integer>250</integer>
+			<integer>95</integer>
 			<key>ypos</key>
-			<integer>220</integer>
+			<integer>205</integer>
 		</dict>
 		<key>FCE4784A-E14B-430D-928D-83F30E3485DB</key>
 		<dict>
 			<key>note</key>
 			<string>Search by Tags</string>
 			<key>xpos</key>
-			<integer>250</integer>
+			<integer>95</integer>
 			<key>ypos</key>
-			<integer>370</integer>
+			<integer>355</integer>
 		</dict>
 	</dict>
 	<key>variables</key>

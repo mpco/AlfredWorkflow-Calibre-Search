@@ -20,7 +20,8 @@ In the search results:
 
 Besides,
 
-- Press `Enter` to open the book file.
+- Press `Enter` to open the book file with Ebook-viewer of Calibre app, **except for PDF files**.
+- Press `⇧Shift + Enter` to open the book file with default app.
 - Press `⌘Command + Enter` to open the folder of the book file.
 - Press `⌥Option + Enter` to open the webpage for the book on Amazon, Google Book .etc.
 
@@ -58,7 +59,8 @@ Order: `Douban、Amzon CN、Amazon、Google Book、ISBN`
 
 此外，
 
-- 按下 `回车` 键，直接打开该书籍文件。
+- 按下 `回车` 键，使用 Calibre 内置的 Ebook-viewer 应用打开该书籍文件，**除了 PDF 格式**。
+- 按下 `⇧Shift + 回车` 键，直接用默认应用打开该书籍文件。
 - 按下 `⌘Command + 回车`键，打开该书籍文件所在文件夹。
 - 按下 `⌥Option + 回车`键，打开该书籍在豆瓣、亚马逊、谷歌图书等网站上的页面。
 
