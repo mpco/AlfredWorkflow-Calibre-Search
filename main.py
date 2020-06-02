@@ -100,7 +100,7 @@ def main(querySQL):
         temp["subtitle"] = u"📙 {:<7} ⭐️ {:<5}  ✍️ {}".format(bookFormat, bookRating, bookAuthors)
         temp["arg"] = bookFullPath
         temp["mods"] = {
-            "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
+            "alt": {"valid": True, "arg": bookWeblink, "subtitle": bookIdentifiers},
             "cmd": {"valid": True, "arg": bookFullPath, "subtitle": u"🏷 " + bookTags}}
         workflowResult['items'].append(temp)
 
@@ -119,13 +119,10 @@ def main(querySQL):
                 temp["arg"] = os.path.join(
                     libraryPath, bookPath, bookFilename + "." + bookFormat.lower())
                 temp["mods"] = {
-                    "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
+                    "alt": {"valid": True, "arg": bookWeblink, "subtitle": bookIdentifiers},
                     "cmd": {"valid": True, "arg": bookTags, "subtitle": u"🏷 " + bookTags}}
                 workflowResult['items'].append(temp)
-    if workflowResult["items"]:
-        print(json.dumps(workflowResult, indent=4, sort_keys=True))
-    else:
-        print('{"items": [{"title": "None found","subtitle": "(*´･д･)?"}]}')
+    print json.dumps(workflowResult, indent=4, sort_keys=True)
 
 
 if __name__ == '__main__':
@@ -145,7 +142,7 @@ if __name__ == '__main__':
         (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
         path
         FROM books
-        WHERE title like '%{qs}%' or tags like '%{qs}%'""".format(qs=queryStr)
+        WHERE title like '%{qs}%' or authors like '%{qs}%' or tags like '%{qs}%'""".format(qs=queryStr)
     elif queryScope == "title":
         querySQL = """SELECT id, title,
         (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
@@ -169,5 +166,17 @@ if __name__ == '__main__':
         (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
         path
         FROM books
-        WHERE title like '%{qs}%' or tags like '%{qs}%'""".format(qs=queryStr)
+        WHERE tags like '%{qs}%'""".format(qs=queryStr)
+    elif queryScope == "authors":
+        querySQL = """SELECT id, title,
+        (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
+        (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
+        (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
+        (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
+        (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
+        (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
+        (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
+        path
+        FROM books
+        WHERE authors like '%{qs}%'""".format(qs=queryStr)
     main(querySQL)
