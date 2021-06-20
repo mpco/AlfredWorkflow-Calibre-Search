@@ -1,12 +1,15 @@
-# Calibre Search
+<h1 align="center">Calibre Search</h1>
 
-Search books in calibre. [Download](https://github.com/mpco/AlfredWorkflow-Calibre-Search/releases)
+Search books in calibre. 
+
+[Download](https://github.com/mpco/AlfredWorkflow-Calibre-Search/releases)
 
 ## How to use
 
-- `cali  + keywords` to search books by **Title** and **Tags**.
+- `cali  + keywords` to search books by **Title**, **Authors** and **Tags**.
 - `calin + keywords` to search books by **Title**.
 - `calit + keywords` to search books by **Tags**.
+- `calia + keywords` to search books by **Authors**.
 
 ![screenshot](https://user-images.githubusercontent.com/3690653/47604761-846fb980-da30-11e8-8949-5018c135702d.png)
 
@@ -24,6 +27,7 @@ Besides,
 - Press `⇧Shift + Enter` to open the book file with default app.
 - Press `⌘Command + Enter` to open the folder of the book file.
 - Press `⌥Option + Enter` to open the webpage for the book on Amazon, Google Book .etc.
+- Press `⌘Command + ⌥Option + Enter` to reveal the book in Calibre.
 
 ### Configuration
 
@@ -43,9 +47,10 @@ Order: `Douban、Amzon CN、Amazon、Google Book、ISBN`
 
 ## 用法
 
-- 输入 `cali  + 关键词` 进行搜索，列出**标题**或**标签（Tags）**符合的书籍。
+- 输入 `cali  + 关键词` 进行搜索，列出**标题**、**作者**、**标签（Tags）**符合的书籍。
 - 输入 `calin + 关键词` 进行搜索，列出**标题**符合的书籍。
 - 输入 `calit + 关键词` 进行搜索，列出**标签（Tags）**符合的书籍。
+- 输入 `calia + 关键词` 进行搜索，列出**作者**符合的书籍。
 
 ![screenshot](https://user-images.githubusercontent.com/3690653/47604761-846fb980-da30-11e8-8949-5018c135702d.png)
 
@@ -63,6 +68,7 @@ Order: `Douban、Amzon CN、Amazon、Google Book、ISBN`
 - 按下 `⇧Shift + 回车` 键，直接用默认应用打开该书籍文件。
 - 按下 `⌘Command + 回车`键，打开该书籍文件所在文件夹。
 - 按下 `⌥Option + 回车`键，打开该书籍在豆瓣、亚马逊、谷歌图书等网站上的页面。
+- 按下 `⌘Command + ⌥Option + 回车`，打开 Calibre 并显示该书籍。
 
 
 ### 环境变量
