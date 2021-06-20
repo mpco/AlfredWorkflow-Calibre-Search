@@ -65,6 +65,7 @@ def id2weblink(idStrs):
 def main(querySQL):
     libraryPath = subprocess.check_output(
         '/Applications/calibre.app/Contents/MacOS/calibre-debug -c "from calibre.utils.config import prefs; print(prefs.get(\'library_path\'),end=\'\')"', shell=True)
+    libraryName = libraryPath.split("/")[-1]
     metaDbPath = os.path.join(libraryPath, 'metadata.db')
     con = sqlite3.connect(metaDbPath)
     con.create_aggregate("concat", 1, Concatenate)
@@ -75,7 +76,7 @@ def main(querySQL):
 
     workflowResult = {"items": []}
     for item in queryResult:
-        # bookCalibreID = item[0]
+        bookCalibreID = item[0]
         bookTitle = item[1]
         # if the book has no author, error will occur: "AttributeError: 'NoneType' object has no attribute 'replace'"
         bookAuthors = item[2].replace("!@#$", ", ") if item[2] else ""
@@ -101,7 +102,9 @@ def main(querySQL):
         temp["arg"] = bookFullPath
         temp["mods"] = {
             "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
-            "cmd": {"valid": True, "arg": bookFullPath, "subtitle": u"🏷 " + bookTags}}
+            "cmd": {"valid": True, "arg": bookFullPath, "subtitle": u"🏷 " + bookTags},
+            "shift": {"valid": True, "arg": bookFullPath, "subtitle": "Open with default app"},
+            "cmd+alt": {"valid": True, "arg": "calibre://show-book/" + libraryName + "/" + str(bookCalibreID), "subtitle": "Reveal in Calibre"}}
         workflowResult['items'].append(temp)
 
         # if more than one format
@@ -120,7 +123,9 @@ def main(querySQL):
                     libraryPath, bookPath, bookFilename + "." + bookFormat.lower())
                 temp["mods"] = {
                     "alt": {"valid": True, "arg": bookWeblink, "subtitle": u"🎫 " + bookIdentifiers},
-                    "cmd": {"valid": True, "arg": bookTags, "subtitle": u"🏷 " + bookTags}}
+                    "cmd": {"valid": True, "arg": bookTags, "subtitle": u"🏷 " + bookTags},
+                    "shift": {"valid": True, "arg": bookFullPath, "subtitle": "Open with default app"},
+                    "cmd+alt": {"valid": True, "arg": "calibre://show-book/" + libraryName + "/" + str(bookCalibreID), "subtitle": "Reveal in Calibre"}}
                 workflowResult['items'].append(temp)
     if workflowResult["items"]:
         print(json.dumps(workflowResult, indent=4, sort_keys=True))
@@ -145,7 +150,7 @@ if __name__ == '__main__':
         (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
         path
         FROM books
-        WHERE title like '%{qs}%' or tags like '%{qs}%'""".format(qs=queryStr)
+        WHERE title like '%{qs}%' or tags like '%{qs}%' or authors like '%{qs}%' """.format(qs=queryStr)
     elif queryScope == "title":
         querySQL = """SELECT id, title,
         (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
@@ -169,5 +174,17 @@ if __name__ == '__main__':
         (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
         path
         FROM books
-        WHERE title like '%{qs}%' or tags like '%{qs}%'""".format(qs=queryStr)
+        WHERE tags like '%{qs}%'""".format(qs=queryStr)
+    elif queryScope == "authors":
+        querySQL = """SELECT id, title,
+        (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
+        (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
+        (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
+        (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
+        (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
+        (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
+        (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
+        path
+        FROM books
+        WHERE authors like '%{qs}%'""".format(qs=queryStr)
     main(querySQL)

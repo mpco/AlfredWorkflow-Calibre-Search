@@ -21,6 +21,59 @@
 				<false/>
 			</dict>
 		</array>
+		<key>787F03EA-3569-49B5-936F-F2D00AE36DC7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4D24259D-8DBE-4341-9325-00E805D4E105</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2F21638-854C-4316-AF2B-5BC73EFF533D</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>C74CAB81-E564-41FD-9F92-556676D1663F</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>2D4D9E18-1129-42D2-A810-15C63CC5498F</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>9E033A42-D9F0-4CE5-90B3-889996F89398</key>
 		<array>
 			<dict>
@@ -88,6 +141,16 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>2D4D9E18-1129-42D2-A810-15C63CC5498F</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>E5B431D6-4AAA-40D0-BD20-BF57E195F68B</key>
 		<array>
@@ -131,6 +194,16 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>2D4D9E18-1129-42D2-A810-15C63CC5498F</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>FCE4784A-E14B-430D-928D-83F30E3485DB</key>
 		<array>
@@ -169,6 +242,16 @@
 				<string>13882102-294E-4AB0-B190-F36D24F2A6D0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>2D4D9E18-1129-42D2-A810-15C63CC5498F</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
@@ -433,6 +516,78 @@
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>calia</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>/usr/bin/python main.py "authors" "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search by Authors in Calibre</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>787F03EA-3569-49B5-936F-F2D00AE36DC7</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>2D4D9E18-1129-42D2-A810-15C63CC5498F</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -445,12 +600,28 @@
 			<key>ypos</key>
 			<integer>420</integer>
 		</dict>
+		<key>2D4D9E18-1129-42D2-A810-15C63CC5498F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>575</integer>
+			<key>ypos</key>
+			<integer>605</integer>
+		</dict>
 		<key>4D24259D-8DBE-4341-9325-00E805D4E105</key>
 		<dict>
 			<key>xpos</key>
 			<integer>575</integer>
 			<key>ypos</key>
 			<integer>95</integer>
+		</dict>
+		<key>787F03EA-3569-49B5-936F-F2D00AE36DC7</key>
+		<dict>
+			<key>note</key>
+			<string>Search by Authors</string>
+			<key>xpos</key>
+			<integer>95</integer>
+			<key>ypos</key>
+			<integer>515</integer>
 		</dict>
 		<key>932E9376-D5B9-4D33-8691-C077C3A92593</key>
 		<dict>
@@ -516,7 +687,7 @@
 		<string>BookWebsite</string>
 	</array>
 	<key>version</key>
-	<string>3.2</string>
+	<string>3.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/mpco/AlfredWorkflow-Calibre-Search</string>
 </dict>
