@@ -143,8 +143,7 @@ if __name__ == '__main__':
     queryStr = sys.argv[2].strip()
     if not queryStr:
         sys.exit()
-    if queryScope == "all":
-        querySQL = """SELECT id, title,
+    baseQuery = """SELECT id, title,
         (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
         (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
         (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
@@ -153,42 +152,15 @@ if __name__ == '__main__':
         (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
         (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
         path
-        FROM books
-        WHERE title like '%{qs}%' or tags like '%{qs}%' or authors like '%{qs}%' """.format(qs=queryStr)
-    elif queryScope == "title":
-        querySQL = """SELECT id, title,
-        (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
-        (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
-        (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
-        (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
-        (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
-        (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
-        (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
-        path
-        FROM books
-        WHERE title like '%{qs}%'""".format(qs=queryStr)
-    elif queryScope == "tags":
-        querySQL = """SELECT id, title,
-        (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
-        (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
-        (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
-        (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
-        (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
-        (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
-        (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
-        path
-        FROM books
-        WHERE tags like '%{qs}%'""".format(qs=queryStr)
-    elif queryScope == "authors":
-        querySQL = """SELECT id, title,
-        (SELECT concat(name) FROM books_authors_link AS bal JOIN authors ON(author = authors.id) WHERE book = books.id) authors,
-        (SELECT MAX(uncompressed_size) FROM data WHERE book=books.id) size,
-        (SELECT concat(name) FROM tags WHERE tags.id IN (SELECT tag from books_tags_link WHERE book=books.id)) tags,
-        (SELECT concat(format) FROM data WHERE data.book=books.id) formats,
-        (SELECT concat(name) FROM data WHERE data.book=books.id) filename,
-        (SELECT rating FROM ratings WHERE ratings.id IN (SELECT rating from books_ratings_link WHERE book=books.id)) rating,
-        (SELECT identifiers_concat(type,val) FROM identifiers WHERE identifiers.book=books.id) ids,
-        path
-        FROM books
-        WHERE authors like '%{qs}%'""".format(qs=queryStr)
+        FROM books"""
+    scopes = ('title', 'tags', 'authors')
+    if queryScope in scopes:
+        queryScopes = [queryScope]
+    else:
+        queryScopes = scopes
+    filterClause = " or ".join([
+        f"""{scope} like '%{queryStr}%'"""
+        for scope in queryScopes
+    ])
+    querySQL = f"""{baseQuery} WHERE {filterClause}"""
     main(querySQL)
