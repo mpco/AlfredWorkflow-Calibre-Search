@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
 import os
@@ -59,12 +59,16 @@ def id2weblink(idStrs):
         if website in idJsonObj:
             return websiteLinkDict[website].format(idJsonObj[website])
     # 如果没有以上网站的id，则获取 idJsonObj 中的第一个
-    return idJsonObj[idJsonObj.keys()[0]]
+    first_key = next(iter(idJsonObj.keys()))
+    return idJsonObj[first_key]
 
 
 def main(querySQL):
     libraryPath = subprocess.check_output(
-        '/Applications/calibre.app/Contents/MacOS/calibre-debug -c "from calibre.utils.config import prefs; print(prefs.get(\'library_path\'),end=\'\')"', shell=True)
+        '/Applications/calibre.app/Contents/MacOS/calibre-debug -c "from calibre.utils.config import prefs; print(prefs.get(\'library_path\'),end=\'\')"',
+        shell=True,
+        encoding="utf-8"
+    )
     libraryName = libraryPath.split("/")[-1]
     metaDbPath = os.path.join(libraryPath, 'metadata.db')
     con = sqlite3.connect(metaDbPath)
