@@ -4,6 +4,8 @@ Search books in calibre.
 
 [Download](https://github.com/mpco/AlfredWorkflow-Calibre-Search/releases)
 
+**Sorry, no more updates as I no longer use a Mac computer and the installation of macOS virtual machine failed.**
+
 ## How to use
 
 - `cali  + keywords` to search books by **Title**, **Authors** and **Tags**.
